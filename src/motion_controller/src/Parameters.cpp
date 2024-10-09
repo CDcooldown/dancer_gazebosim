@@ -10,7 +10,7 @@ namespace dmotion
     {
         parameters = std::make_shared<Parameters>();
         this->ball_position_subscriber = this->create_subscription<geometry_msgs::msg::Vector3>("ball",10,std::bind(&ParamNode::ball_position_callback,this,_1));
-        parameters->config_path = "/home/handsome/competition/sim/src/motion_controller/config/";
+        parameters->config_path = "/home/robotics/ZJUDancer/private_simulator/dancer_gazebosim/src/motion_controller/config/";
         std::string motion_hub_param_path = parameters->config_path + "motion_hub_param.yaml",walk_param_path = parameters->config_path + "walk_param/foot_z.yaml";
         rclcpp::ParameterMap motion_hub_params = rclcpp::parameter_map_from_yaml_file(motion_hub_param_path), walk_params = rclcpp::parameter_map_from_yaml_file(walk_param_path);
         //将参数存进一个map里，方便处理

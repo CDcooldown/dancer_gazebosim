@@ -1,0 +1,205 @@
+<sdf version='1.11'>
+  <model name='装配体_new'>
+    <link name='base_link'>
+      <inertial>
+        <pose>0.0031421000000000001 0.00096518999999999999 -0.025385999999999999 0 0 0</pose>
+        <mass>0.52503999999999995</mass>
+        <inertia>
+          <ixx>0.00044373999999999998</ixx>
+          <ixy>-1.2159999999999999e-09</ixy>
+          <ixz>-2.7091999999999998e-06</ixz>
+          <iyy>0.00038327000000000001</iyy>
+          <iyz>-3.0169e-07</iyz>
+          <izz>0.00029388999999999999</izz>
+        </inertia>
+      </inertial>
+      <collision name='base_link_collision'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>meshes/base_link.STL</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='base_link_visual'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>meshes/base_link.STL</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>0.995100021 1 1 1</diffuse>
+          <ambient>0.995100021 1 1 1</ambient>
+        </material>
+      </visual>
+    </link>
+    <joint name='right_arm_upper' type='revolute'>
+      <pose relative_to='base_link'>0.0134 -0.074700000000000003 0 0 0 0</pose>
+      <parent>base_link</parent>
+      <child>right_shoulder</child>
+      <axis>
+        <xyz>0 -1 0</xyz>
+        <limit>
+          <lower>0</lower>
+          <upper>0</upper>
+          <effort>0</effort>
+          <velocity>0</velocity>
+        </limit>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='right_shoulder'>
+      <pose relative_to='right_arm_upper'>0 0 0 0 0 0</pose>
+      <inertial>
+        <pose>0.00049892999999999997 -0.027125 -0.0079813000000000002 0 0 0</pose>
+        <mass>0.051527000000000003</mass>
+        <inertia>
+          <ixx>1.3534e-05</ixx>
+          <ixy>-6.4513999999999998e-12</ixy>
+          <ixz>1.8503000000000001e-11</ixz>
+          <iyy>1.5883999999999999e-05</iyy>
+          <iyz>-2.6081999999999999e-06</iyz>
+          <izz>1.2807e-05</izz>
+        </inertia>
+      </inertial>
+      <collision name='right_shoulder_collision'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>meshes/right_shoulder.STL</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='right_shoulder_visual'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>meshes/right_shoulder.STL</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>1 1 1 1</diffuse>
+          <ambient>1 1 1 1</ambient>
+        </material>
+      </visual>
+    </link>
+    <joint name='right_arm_mid' type='revolute'>
+      <pose relative_to='right_shoulder'>-0.021999999999999999 -0.029000000000000001 -0.029000000000000001 0 0 0</pose>
+      <parent>right_shoulder</parent>
+      <child>right_arm</child>
+      <axis>
+        <xyz>1 0 0</xyz>
+        <limit>
+          <lower>0</lower>
+          <upper>0</upper>
+          <effort>0</effort>
+          <velocity>0</velocity>
+        </limit>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='right_arm'>
+      <pose relative_to='right_arm_mid'>0 0 0 0 0 0</pose>
+      <inertial>
+        <pose>0.022026 -2.9995e-05 -0.049362000000000003 0 0 0</pose>
+        <mass>0.13894999999999999</mass>
+        <inertia>
+          <ixx>5.2185999999999998e-05</ixx>
+          <ixy>1.9850000000000001e-11</ixy>
+          <ixz>-2.0237999999999999e-07</ixz>
+          <iyy>5.8127000000000001e-05</iyy>
+          <iyz>-1.1015e-07</iyz>
+          <izz>3.6204000000000001e-05</izz>
+        </inertia>
+      </inertial>
+      <collision name='right_arm_collision'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>meshes/right_arm.STL</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='right_arm_visual'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>meshes/right_arm.STL</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>0.313724995 0.313724995 0.313724995 1</diffuse>
+          <ambient>0.313724995 0.313724995 0.313724995 1</ambient>
+        </material>
+      </visual>
+    </link>
+    <joint name='right_arm_lower' type='revolute'>
+      <pose relative_to='right_arm'>0.021999999999999999 0.01925 -0.1076 0 0 0</pose>
+      <parent>right_arm</parent>
+      <child>right_hand</child>
+      <axis>
+        <xyz>0 1 0</xyz>
+        <limit>
+          <lower>0</lower>
+          <upper>0</upper>
+          <effort>0</effort>
+          <velocity>0</velocity>
+        </limit>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='right_hand'>
+      <pose relative_to='right_arm_lower'>0 0 0 0 0 0</pose>
+      <inertial>
+        <pose>-0.0048133999999999998 -0.028542999999999999 -0.073357000000000006 0 0 0</pose>
+        <mass>0.064269999999999994</mass>
+        <inertia>
+          <ixx>5.8352e-05</ixx>
+          <ixy>5.7131999999999996e-07</ixy>
+          <ixz>1.1009000000000001e-05</ixz>
+          <iyy>5.8740999999999999e-05</iyy>
+          <iyz>-2.4405000000000002e-06</iyz>
+          <izz>1.5617999999999999e-05</izz>
+        </inertia>
+      </inertial>
+      <collision name='right_hand_collision'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>meshes/right_hand.STL</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='right_hand_visual'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>meshes/right_hand.STL</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>1 1 1 1</diffuse>
+          <ambient>1 1 1 1</ambient>
+        </material>
+      </visual>
+    </link>
+  </model>
+</sdf>
