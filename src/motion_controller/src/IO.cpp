@@ -98,8 +98,6 @@ void IO::Init(const Entity &_entity,const std::shared_ptr<const sdf::Element> &_
             return true;
         });
 
-
-
     auto joints = dataPtr->model.Joints(_ecm);
     joint_number = joints.size();
     std::string joint_name_list;
@@ -120,7 +118,6 @@ void IO::Init(const Entity &_entity,const std::shared_ptr<const sdf::Element> &_
     if (_sdf->HasElement("cmd_min")) cmdMin = _sdf->Get<double>("cmd_min");
     for(int i = 0; i < joint_number; ++i)    this->dataPtr->posPid[i].Init(p, i, d, iMax, iMin, cmdMax, cmdMin, cmdOffset);
     gzmsg << "IO Init successfully! " << " joint order : " << joint_name_list << std::endl ;
-
 }
 
 void IO::ServoControl(std::vector<double> servo_angles, const gz::sim::UpdateInfo &_info,gz::sim::EntityComponentManager &_ecm)

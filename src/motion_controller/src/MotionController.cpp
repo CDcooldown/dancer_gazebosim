@@ -125,7 +125,7 @@ action_list(std::make_shared< std::queue< std::vector<double> > >())
   double com_z = param_server_node->parameters->pendulum_walk_param.COM_HEIGHT;
   dmotion::OneFootLanding f(false,param_server_node->parameters);
   std::vector<double> hangfoot({0,com_y * 2,0,0,0,0}),com({com_x,com_y,com_z}),upbody_pose({0,0,0});
-  joint_command = f.GetOneStep(hangfoot,com,upbody_pose);
+  joint_command = f.GetOneStep(hangfoot, com, upbody_pose);
   for(int i = 0; i < 2; ++i)  joint_command.push_back(param_server_node->parameters->stp.UPARM_ANGLE),joint_command.push_back(param_server_node->parameters->stp.LOWARM_ANGLE);
   for(int i = 0; i < 6; ++i)   joint_command[i + 6] = joint_command[i];
   joint_command[6] = -joint_command[6],joint_command[7] = -joint_command[7],joint_command[11] = -joint_command[11];
@@ -138,7 +138,7 @@ action_list(std::make_shared< std::queue< std::vector<double> > >())
 
 MotionController::MotionController():dataPtr(std::make_unique<MotionControllerPrivate>())
 {
-  
+
 }
 
 MotionController::~MotionController()

@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by Stephen Brawner (brawner@gmail.com) 
+     Commit Version: 1.6.0-4-g7f85cfe  Build Version: 1.6.7995.38578
+     For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
+<robot
+  name="left_arm">
+  <link
+    name="chest">
+    <inertial>
+      <origin
+        xyz="-0.0001211613481327 0.00327457412975664 -0.0250578458337959"
+        rpy="0 0 0" />
+      <mass
+        value="0.531912778600973" />
+      <inertia
+        ixx="0.000383892000224428"
+        ixy="1.21321138119047E-09"
+        ixz="3.01696273983852E-07"
+        iyy="0.000444133944054918"
+        iyz="-2.70915050863183E-06"
+        izz="0.000294281860299723" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://left_arm/meshes/chest.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://left_arm/meshes/chest.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <link
+    name="left_shoulder">
+    <inertial>
+      <origin
+        xyz="3.4807E-09 -0.0017709 -0.00095189"
+        rpy="0 0 0" />
+      <mass
+        value="0.044031" />
+      <inertia
+        ixx="1.2764E-05"
+        ixy="1.8647E-11"
+        ixz="-1.5388E-11"
+        iyy="1.693E-05"
+        iyz="5.5264E-07"
+        izz="1.0975E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://left_arm/meshes/left_shoulder.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://left_arm/meshes/left_shoulder.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="left_arm_upper"
+    type="fixed">
+    <origin
+      xyz="-0.103502634219692 0.00416746931816645 0.0134"
+      rpy="2.18152229118412 1.5707963267949 0" />
+    <parent
+      link="chest" />
+    <child
+      link="left_shoulder" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="left_arm">
+    <inertial>
+      <origin
+        xyz="2.8453E-05 -0.029285 0.00020037"
+        rpy="0 0 0" />
+      <mass
+        value="0.14644" />
+      <inertia
+        ixx="5.852E-05"
+        ixy="1.1014E-07"
+        ixz="6.2608E-11"
+        iyy="3.6597E-05"
+        iyz="-2.025E-07"
+        izz="5.2957E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://left_arm/meshes/left_arm.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.25098 0.25098 0.25098 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://left_arm/meshes/left_arm.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="left_arm_middle"
+    type="fixed">
+    <origin
+      xyz="0 -0.0241430970576075 0.0348343038500071"
+      rpy="-1.57079632679489 -0.610725964389222 1.5707963267949" />
+    <parent
+      link="left_shoulder" />
+    <child
+      link="left_arm" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="left_hand">
+    <inertial>
+      <origin
+        xyz="0.051671 0.015457 -0.0014073"
+        rpy="0 0 0" />
+      <mass
+        value="0.06427" />
+      <inertia
+        ixx="1.2951E-05"
+        ixy="-2.5065E-06"
+        ixz="3.8138E-07"
+        iyy="5.8741E-05"
+        iyz="-1.7885E-12"
+        izz="6.1018E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://left_arm/meshes/left_hand.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://left_arm/meshes/left_hand.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="left_arm_lower"
+    type="fixed">
+    <origin
+      xyz="0.0247500000000004 -0.11005 0.122"
+      rpy="1.5707963267949 1.5707963267949 0" />
+    <parent
+      link="left_arm" />
+    <child
+      link="left_hand" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+</robot>
