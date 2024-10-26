@@ -49,8 +49,9 @@ namespace dmotion
         parameters->pendulum_walk_param.COM_X_OFFSET = param_map["dmotion.PendulumWalk.com_x_offset"].as_double();
         parameters->pendulum_walk_param.ANKLE_DIS = param_map["dmotion.PendulumWalk.ankle_dis"].as_double();
         parameters->pendulum_walk_param.COM_HEIGHT = param_map["dmotion.PendulumWalk.com_height"].as_double();    
-        parameters->stp. = param_map["dmotion.Status.uparm_angle"].as_double();
+        parameters->stp.UPARM_ANGLE = param_map["dmotion.Status.uparm_angle"].as_double();
         parameters->stp.LOWARM_ANGLE = param_map["dmotion.Status.lowarm_angle"].as_double();
+        
         
         //ThreeInterpolation.cpp
         parameters->three_interpolation_param.DEFAULT_POINT_INTERVAL = param_map["dmotion.ThreeInterpolation.default_point_interval"].as_double();
