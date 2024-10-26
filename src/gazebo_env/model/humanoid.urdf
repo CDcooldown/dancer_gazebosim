@@ -109,7 +109,9 @@
         </material>
         </visual>
     </link>
-    <joint name='left_arm_upper' type='revolute'>
+
+
+    <!-- <joint name='left_arm_upper' type='revolute'>
         <origin rpy="3.141593 1.570796 0.000000 " xyz="-0.074700 0.013400 0.000000 "/>
         <parent link="chest" />
         <child link="left_arm" />
@@ -255,7 +257,7 @@
           <rgba>1 1 1 1</rgba>
           </material>
       </visual>
-    </link>
+    </link> -->
     <joint name='left_hip_yaw' type='revolute'>
       <origin rpy="0.000000 0.000000 0.000000 " xyz="-0.044999999999999998 0.0133599999999985 -0.16994999999999999 "/>
       <parent link="chest" />

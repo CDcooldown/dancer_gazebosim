@@ -27,6 +27,7 @@ namespace dmotion
         }
 
         //get parameters and store
+
         parameters->one_foot_landing_param.ANKLE_OFFSET_X = param_map["dmotion.OneFootLanding.ankle_offset_x"].as_double();
         parameters->one_foot_landing_param.ANKLE_OFFSET_Y = param_map["dmotion.OneFootLanding.ankle_offset_y"].as_double();
         parameters->one_foot_landing_param.ANKLE_OFFSET_Z = param_map["dmotion.OneFootLanding.ankle_offset_z"].as_double();
@@ -48,7 +49,7 @@ namespace dmotion
         parameters->pendulum_walk_param.COM_X_OFFSET = param_map["dmotion.PendulumWalk.com_x_offset"].as_double();
         parameters->pendulum_walk_param.ANKLE_DIS = param_map["dmotion.PendulumWalk.ankle_dis"].as_double();
         parameters->pendulum_walk_param.COM_HEIGHT = param_map["dmotion.PendulumWalk.com_height"].as_double();    
-        parameters->stp.UPARM_ANGLE = param_map["dmotion.Status.uparm_angle"].as_double();
+        parameters->stp. = param_map["dmotion.Status.uparm_angle"].as_double();
         parameters->stp.LOWARM_ANGLE = param_map["dmotion.Status.lowarm_angle"].as_double();
         
         //ThreeInterpolation.cpp
@@ -80,8 +81,6 @@ namespace dmotion
         parameters->stp.LAAT_for_ball = param_map["dmotion.Status.LAAT_for_ball"].as_double();
         parameters->stp.one_step_y = param_map["dmotion.Status.one_step_y"].as_double();
         parameters->stp.shit_rob_radius = param_map["dmotion.Status.shit_rob_radius"].as_double();
-
-
 
 
         //init ball at one of the penalty mark by default

@@ -3,22 +3,22 @@
      Commit Version: 1.6.0-4-g7f85cfe  Build Version: 1.6.7995.38578
      For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
 <robot
-  name="left_arm">
+  name="new_left">
   <link
     name="chest">
     <inertial>
       <origin
-        xyz="-0.0001211613481327 0.00327457412975664 -0.0250578458337959"
+        xyz="0.0032746 0.00012116 -0.025058"
         rpy="0 0 0" />
       <mass
-        value="0.531912778600973" />
+        value="0.53191" />
       <inertia
-        ixx="0.000383892000224428"
-        ixy="1.21321138119047E-09"
-        ixz="3.01696273983852E-07"
-        iyy="0.000444133944054918"
-        iyz="-2.70915050863183E-06"
-        izz="0.000294281860299723" />
+        ixx="0.00044413"
+        ixy="-1.2132E-09"
+        ixz="-2.7092E-06"
+        iyy="0.00038389"
+        iyz="-3.017E-07"
+        izz="0.00029428" />
     </inertial>
     <visual>
       <origin
@@ -26,7 +26,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://left_arm/meshes/chest.STL" />
+          filename="meshes/chest.STL" />
       </geometry>
       <material
         name="">
@@ -40,7 +40,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://left_arm/meshes/chest.STL" />
+          filename="meshes/chest.STL" />
       </geometry>
     </collision>
   </link>
@@ -48,17 +48,17 @@
     name="left_shoulder">
     <inertial>
       <origin
-        xyz="3.4807E-09 -0.0017709 -0.00095189"
+        xyz="-3.4807E-09 0.023606 -0.0044032"
         rpy="0 0 0" />
       <mass
         value="0.044031" />
       <inertia
         ixx="1.2764E-05"
-        ixy="1.8647E-11"
-        ixz="-1.5388E-11"
-        iyy="1.693E-05"
-        iyz="5.5264E-07"
-        izz="1.0975E-05" />
+        ixy="-6.4514E-12"
+        ixz="-2.33E-11"
+        iyy="1.5491E-05"
+        iyz="2.6082E-06"
+        izz="1.2414E-05" />
     </inertial>
     <visual>
       <origin
@@ -66,7 +66,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://left_arm/meshes/left_shoulder.STL" />
+          filename="meshes/left_shoulder.STL" />
       </geometry>
       <material
         name="">
@@ -80,38 +80,43 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://left_arm/meshes/left_shoulder.STL" />
+          filename="meshes/left_shoulder.STL" />
       </geometry>
     </collision>
   </link>
   <joint
     name="left_arm_upper"
-    type="fixed">
+    type="revolute">
     <origin
-      xyz="-0.103502634219692 0.00416746931816645 0.0134"
-      rpy="2.18152229118412 1.5707963267949 0" />
+      xyz="0.0134 0.0779 0"
+      rpy="0 0 0" />
     <parent
       link="chest" />
     <child
       link="left_shoulder" />
     <axis
-      xyz="0 0 0" />
+      xyz="0 1 0" />
+    <limit
+      lower="0"
+      upper="0"
+      effort="0"
+      velocity="0" />
   </joint>
   <link
     name="left_arm">
     <inertial>
       <origin
-        xyz="2.8453E-05 -0.029285 0.00020037"
+        xyz="-0.0279 2.8453E-05 -0.046835"
         rpy="0 0 0" />
       <mass
         value="0.14644" />
       <inertia
-        ixx="5.852E-05"
-        ixy="1.1014E-07"
-        ixz="6.2608E-11"
-        iyy="3.6597E-05"
-        iyz="-2.025E-07"
-        izz="5.2957E-05" />
+        ixx="5.2957E-05"
+        ixy="6.2608E-11"
+        ixz="-2.025E-07"
+        iyy="5.852E-05"
+        iyz="1.1014E-07"
+        izz="3.6597E-05" />
     </inertial>
     <visual>
       <origin
@@ -119,7 +124,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://left_arm/meshes/left_arm.STL" />
+          filename="meshes/left_arm.STL" />
       </geometry>
       <material
         name="">
@@ -133,37 +138,42 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://left_arm/meshes/left_arm.STL" />
+          filename="meshes/left_arm.STL" />
       </geometry>
     </collision>
   </link>
   <joint
     name="left_arm_middle"
-    type="fixed">
+    type="revolute">
     <origin
-      xyz="0 -0.0241430970576075 0.0348343038500071"
-      rpy="-1.57079632679489 -0.610725964389222 1.5707963267949" />
+      xyz="0.0281 0.0258 -0.029"
+      rpy="0 0 0" />
     <parent
       link="left_shoulder" />
     <child
       link="left_arm" />
     <axis
-      xyz="0 0 0" />
+      xyz="-1 0 0" />
+    <limit
+      lower="0"
+      upper="0"
+      effort="0"
+      velocity="0" />
   </joint>
   <link
     name="left_hand">
     <inertial>
       <origin
-        xyz="0.051671 0.015457 -0.0014073"
+        xyz="0.070329 -0.014057 -0.021407"
         rpy="0 0 0" />
       <mass
         value="0.06427" />
       <inertia
         ixx="1.2951E-05"
         ixy="-2.5065E-06"
-        ixz="3.8138E-07"
+        ixz="-3.8138E-07"
         iyy="5.8741E-05"
-        iyz="-1.7885E-12"
+        iyz="1.7885E-12"
         izz="6.1018E-05" />
     </inertial>
     <visual>
@@ -172,7 +182,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://left_arm/meshes/left_hand.STL" />
+          filename="meshes/left_hand.STL" />
       </geometry>
       <material
         name="">
@@ -186,21 +196,26 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://left_arm/meshes/left_hand.STL" />
+          filename="meshes/left_hand.STL" />
       </geometry>
     </collision>
   </link>
   <joint
     name="left_arm_lower"
-    type="fixed">
+    type="revolute">
     <origin
-      xyz="0.0247500000000004 -0.11005 0.122"
-      rpy="1.5707963267949 1.5707963267949 0" />
+      xyz="-0.0281 0.02335 -0.1076"
+      rpy="0 0 0" />
     <parent
       link="left_arm" />
     <child
       link="left_hand" />
     <axis
-      xyz="0 0 0" />
+      xyz="0 1 0" />
+    <limit
+      lower="0"
+      upper="0"
+      effort="0"
+      velocity="0" />
   </joint>
 </robot>

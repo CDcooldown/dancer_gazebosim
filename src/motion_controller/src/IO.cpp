@@ -162,7 +162,7 @@ void IO::ServoControl(std::vector<double> servo_angles, const gz::sim::UpdateInf
             return;
         }
         int index = actual_joint_name_index[this->joint_order[i]];
-        //做一些安全性检查，并拿到JointPositioin
+        //做一些安全性检查，并拿到JointPosition
         auto jointPosComp = _ecm.Component<components::JointPosition>(this->dataPtr->jointEntities[index]);
         if (!jointPosComp)//如果没有就创建一个，然后让系统自己更新
         {

@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by Stephen Brawner (brawner@gmail.com) 
+     Commit Version: 1.6.0-4-g7f85cfe  Build Version: 1.6.7995.38578
+     For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
+<robot
+  name="装配体_new_left">
+  <link
+    name="chest">
+    <inertial>
+      <origin
+        xyz="-0.00012116 0.0032746 -0.025058"
+        rpy="0 0 0" />
+      <mass
+        value="0.53191" />
+      <inertia
+        ixx="0.00038389"
+        ixy="1.2132E-09"
+        ixz="3.017E-07"
+        iyy="0.00044413"
+        iyz="-2.7092E-06"
+        izz="0.00029428" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://装配体_new_left/meshes/chest.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://装配体_new_left/meshes/chest.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <link
+    name="left_shoulder">
+    <inertial>
+      <origin
+        xyz="-3.4807E-09 0.023606 -0.0044032"
+        rpy="0 0 0" />
+      <mass
+        value="0.044031" />
+      <inertia
+        ixx="1.2764E-05"
+        ixy="-6.4514E-12"
+        ixz="-2.33E-11"
+        iyy="1.5491E-05"
+        iyz="2.6082E-06"
+        izz="1.2414E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://装配体_new_left/meshes/left_shoulder.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://装配体_new_left/meshes/left_shoulder.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="left_arm_upper"
+    type="revolute">
+    <origin
+      xyz="-0.0779 0 0.0134"
+      rpy="1.5708 -1.5708 0" />
+    <parent
+      link="chest" />
+    <child
+      link="left_shoulder" />
+    <axis
+      xyz="0 1 0" />
+    <limit
+      lower="0"
+      upper="0"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="left_arm">
+    <inertial>
+      <origin
+        xyz="-0.0279 2.8453E-05 -0.046835"
+        rpy="0 0 0" />
+      <mass
+        value="0.14644" />
+      <inertia
+        ixx="5.2957E-05"
+        ixy="6.2608E-11"
+        ixz="-2.025E-07"
+        iyy="5.852E-05"
+        iyz="1.1014E-07"
+        izz="3.6597E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://装配体_new_left/meshes/left_arm.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.25098 0.25098 0.25098 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://装配体_new_left/meshes/left_arm.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="left_arm_middle"
+    type="revolute">
+    <origin
+      xyz="0.0281 0.0258 -0.029"
+      rpy="0 0 0" />
+    <parent
+      link="left_shoulder" />
+    <child
+      link="left_arm" />
+    <axis
+      xyz="-1 0 0" />
+    <limit
+      lower="0"
+      upper="0"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="left_hand">
+    <inertial>
+      <origin
+        xyz="0.070329 -0.014057 -0.021407"
+        rpy="0 0 0" />
+      <mass
+        value="0.06427" />
+      <inertia
+        ixx="1.2951E-05"
+        ixy="-2.5065E-06"
+        ixz="-3.8138E-07"
+        iyy="5.8741E-05"
+        iyz="1.7885E-12"
+        izz="6.1018E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://装配体_new_left/meshes/left_hand.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://装配体_new_left/meshes/left_hand.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="left_arm_lower"
+    type="revolute">
+    <origin
+      xyz="-0.0281 0.02335 -0.1076"
+      rpy="0 0 0" />
+    <parent
+      link="left_arm" />
+    <child
+      link="left_hand" />
+    <axis
+      xyz="0 1 0" />
+    <limit
+      lower="0"
+      upper="0"
+      effort="0"
+      velocity="0" />
+  </joint>
+</robot>

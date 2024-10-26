@@ -21,7 +21,7 @@ int main(int argc, char **argv)
   rclcpp::init(argc,argv);
   std::shared_ptr<dmotion::ParamNode> param_server_node = std::make_shared<dmotion::ParamNode>();
   std::thread parameter_server_thread(paramater_server_thread_func,param_server_node);
-  dmotion::Climb climb_controller("BACK",angle,param_server_node->parameters,env);
+  dmotion::Climb climb_controller("BACK", angle, param_server_node->parameters,env);
   climb_controller.working();
   rclcpp::shutdown();
 
