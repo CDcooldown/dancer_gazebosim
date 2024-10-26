@@ -34,11 +34,12 @@ void Climb::Prepare()
     } 
     if(!flag) break;
     AllPosition_time.push_back(SinglePosition),AllPosition = AllPosition_time;
-    for (unsigned i = 0; i < AllPosition.size(); i++) AllPosition[i].pop_back();
+    for (unsigned i = 0; i < AllPosition.size(); i++)
+      AllPosition[i].pop_back();
     init_pose = AllPosition[0];
   }
   infile.close();
-  // RCLCPP_INFO(rclcpp::get_logger("Climb"),"load file succeessfully");
+  // RCLCPP_INFO(rclcpp::get_logger("Climb"),"load file successfully");
 }
 
 Climb::Climb(std::shared_ptr< std::queue< std::vector<double> > > _action_list, std::string label, std::shared_ptr<Parameters> _parameters):parameters(_parameters),label_(label),action_list(_action_list)
@@ -48,19 +49,18 @@ Climb::Climb(std::shared_ptr< std::queue< std::vector<double> > > _action_list, 
   position_now = _parameters->stp.cur_servo_angles;
   //从跌倒状态规划到示教爬起开始姿态
   Prepare();
-
 }
 
 void Climb::working()
 {
   std::vector<std::vector<double> > servo_position;//use to record all the calculate result of servo position
-  std::vector<double> servo_points,position_aftclimb,angle_leftleg,angle_rightleg;
+  std::vector<double> servo_points, position_aftclimb, angle_leftleg, angle_rightleg;
   servo_points.resize(DATA_COL_NUM - 1);
 
   //过渡段
   for (int i = 0; i < DATA_COL_NUM - 1; i++)
   {
-    value[0] = position_now[i],value[1] = init_pose[i],time[0] = 0, time[1] = parameters->climb_param.WHOLE_TIME;
+    value[0] = position_now[i], value[1] = init_pose[i], time[0] = 0, time[1] = parameters->climb_param.WHOLE_TIME;
     ThreeInterpolation offset(parameters, time, value);
     auto servo_split = offset.GetPoints();
     servo_position.push_back(servo_split);
@@ -68,7 +68,8 @@ void Climb::working()
   unsigned int len = servo_position[0].size();
   for (unsigned i = 0; i < len; ++i)
   {
-    for (unsigned j = 0; j < DATA_COL_NUM - 1; ++j)  servo_points[j] = servo_position[j][i];
+    for (unsigned j = 0; j < DATA_COL_NUM - 1; ++j)  
+      servo_points[j] = servo_position[j][i];
     this->action_list->push(servo_points);
   }
 
