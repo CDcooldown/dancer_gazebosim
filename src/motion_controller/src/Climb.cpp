@@ -5,7 +5,7 @@
 #include "OneFootLanding.h"
 #include "PendulumWalk.h"
 #include "ForwardKinematics.h"
-#define DATA_COL_NUM 17//前 
+#define DATA_COL_NUM 19//前 
 
 using namespace std;
 
@@ -23,11 +23,14 @@ void Climb::Prepare()
   bool flag = true;//judge if read successfully
   while (true)
   {
-    double buffer; SinglePosition.clear();
+    double buffer; 
+    SinglePosition.clear();
     for (int i = 0; i < DATA_COL_NUM && flag; i++)
     {
-      if(infile >> buffer)  SinglePosition.push_back(buffer);
-      else flag = false;
+      if(infile >> buffer)  
+        SinglePosition.push_back(buffer);
+      else 
+        flag = false;
     } 
     if(!flag) break;
     AllPosition_time.push_back(SinglePosition),AllPosition = AllPosition_time;
