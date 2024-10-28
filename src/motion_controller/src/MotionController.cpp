@@ -247,6 +247,8 @@ void MotionController::PreUpdate(const UpdateInfo &_info, EntityComponentManager
       auto delta = std::chrono::duration_cast< std::chrono::milliseconds>(std::chrono::duration< double >(1.0 / this->control_frequency));//转成ms是因为std::chrono::steady_clock::duration不支持与秒的相加
       this->dataPtr->nextControlTime += delta;
       auto top_action = this->dataPtr->action_list->front();  this->dataPtr->action_list->pop();
+      std::cout << top_action.size() << std::endl << std::endl << std::endl;
+
       if(top_action.size() == 1)    //我们规定如果取出来的front 为长度为1的动作，则是delay动作，唯一一个元素表示时间长度（s为单位）
       {
         auto delay_time = std::chrono::duration_cast< std::chrono::milliseconds>(std::chrono::duration< double >(top_action[0]));

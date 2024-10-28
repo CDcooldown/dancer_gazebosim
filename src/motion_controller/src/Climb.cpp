@@ -33,7 +33,8 @@ void Climb::Prepare()
         flag = false;
     } 
     if(!flag) break;
-    AllPosition_time.push_back(SinglePosition),AllPosition = AllPosition_time;
+    AllPosition_time.push_back(SinglePosition);
+    AllPosition = AllPosition_time;
     for (unsigned i = 0; i < AllPosition.size(); i++)
       AllPosition[i].pop_back();
     init_pose = AllPosition[0];
