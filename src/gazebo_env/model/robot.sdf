@@ -167,14 +167,16 @@
       </visual>
     </link>
     <joint name='left_arm_lower' type='revolute'>
-      <pose relative_to='left_arm'>-0.0281 0.023349999999999999 -0.1076 0 0 0</pose>
+      <pose relative_to='left_arm'>-0.0281 0.023349999999999999 -0.1076 0 1.57 0</pose>
       <parent>left_arm</parent>
       <child>left_hand</child>
       <axis>
-        <xyz>0 1 0</xyz>
+        <xyz>0 -1 0</xyz>
         <limit>
-          <lower>-1.5707963267948966</lower>
-          <upper>1.5707963267948966</upper>
+          <!-- <lower>-1.5707963267948966</lower>
+          <upper>1.5707963267948966</upper> -->
+          <lower>-3.0</lower>
+          <upper>3.0</upper>
           <effort>3</effort>
           <velocity>inf</velocity>
           <stiffness>100000000</stiffness>
@@ -1103,14 +1105,16 @@
       </visual>
     </link>
     <joint name='right_arm_lower' type='revolute'>
-      <pose relative_to='right_arm'>0.021999999999999999 0.01925 -0.1076 0 0 0</pose>
+      <pose relative_to='right_arm'>0.021999999999999999 0.01925 -0.1076 0 1.57 0</pose>
       <parent>right_arm</parent>
       <child>right_hand</child>
       <axis>
-        <xyz>0 1 0</xyz>
+        <xyz>0 -1 0</xyz>
         <limit>
-          <lower>-1.5707963267948966</lower>
-          <upper>1.5707963267948966</upper>
+          <!-- <lower>-1.5707963267948966</lower>
+          <upper>1.5707963267948966</upper> -->
+          <lower>-3.0</lower>
+          <upper>3.0</upper>
           <effort>3</effort>
           <velocity>inf</velocity>
           <stiffness>100000000</stiffness>
