@@ -53,16 +53,20 @@
 
     
     <joint name='left_arm_upper' type='revolute'>
-      <pose relative_to='chest'>0.0134 0.077899999999999997 0 0 0 0</pose>
+      <!-- <pose relative_to='chest'>0.0134 0.077899999999999997 0 0 0 0</pose> -->
+      <pose relative_to='chest'>-0.077000000000000003 0.0134 0 0 0 1.5707963267948966</pose>
+
       <parent>chest</parent>
       <child>left_shoulder</child>
       <axis>
-        <xyz>0 1 0</xyz>
+        <xyz>0 -1 0</xyz>
         <limit>
-          <lower>0</lower>
-          <upper>0</upper>
-          <effort>0</effort>
-          <velocity>0</velocity>
+          <lower>-3.14159265359</lower>
+          <upper>3.14159265359</upper>
+          <effort>3</effort>
+          <velocity>inf</velocity>
+          <stiffness>100000000</stiffness>
+          <dissipation>1</dissipation>
         </limit>
         <dynamics>
           <spring_reference>0</spring_reference>
@@ -71,8 +75,7 @@
       </axis>
     </joint>
     <link name='left_shoulder'>
-      <!-- <pose relative_to='left_arm_upper'>0 0 0 0 0 0</pose> -->
-      <pose>-0.077000000000000003 0.0134 0 0 0 1.5707963267948966</pose>
+      <pose relative_to='left_arm_upper'>0 0 0 0 0 0</pose>
       <inertial>
         <pose>-3.4807000000000002e-09 0.023605999999999999 -0.0044032000000000003 0 0 0</pose>
         <mass>0.044031000000000001</mass>
@@ -170,8 +173,8 @@
       <axis>
         <xyz>0 1 0</xyz>
         <limit>
-          <lower>-3.14159265359</lower>
-          <upper>3.14159265359</upper>
+          <lower>-1.5707963267948966</lower>
+          <upper>1.5707963267948966</upper>
           <effort>3</effort>
           <velocity>inf</velocity>
           <stiffness>100000000</stiffness>
@@ -979,17 +982,25 @@
     </link>
 
     <joint name='right_arm_upper' type='revolute'>
-      <pose relative_to='chest'>0.0134 -0.074700000000000003 0 0 0 0</pose>
+      <pose relative_to='chest'>0.074700000000000003 0.0134 0 0 0 1.5707963267948966</pose>
       <!-- <pose>0 -1.7347234759768071e-18 0 0 0 0</pose> -->
       <parent>chest</parent>
       <child>right_shoulder</child>
       <axis>
         <xyz>0 -1 0</xyz>
-        <limit>
+        <!-- <limit>
           <lower>0</lower>
           <upper>0</upper>
           <effort>0</effort>
           <velocity>0</velocity>
+        </limit> -->
+        <limit>
+          <lower>-3.14159265359</lower>
+          <upper>3.14159265359</upper>
+          <effort>3</effort>
+          <velocity>inf</velocity>
+          <stiffness>100000000</stiffness>
+          <dissipation>1</dissipation>
         </limit>
         <dynamics>
           <spring_reference>0</spring_reference>
@@ -998,8 +1009,8 @@
       </axis>
     </joint>
     <link name='right_shoulder'>
-      <!-- <pose relative_to='right_arm_upper'>0 0 0 0 0 0</pose> -->
-      <pose>0.074700000000000003 0.0134 0 0 0 1.5707963267948966</pose>
+      <pose relative_to='right_arm_upper'>0 0 0 0 0 0</pose>
+      <!-- <pose>0.074700000000000003 0.0134 0 0 0 1.5707963267948966</pose> -->
 
       <inertial>
         <pose>0.00049892999999999997 -0.027125 -0.0079813000000000002 0 0 0</pose>
@@ -1098,8 +1109,8 @@
       <axis>
         <xyz>0 1 0</xyz>
         <limit>
-          <lower>-3.14159265359</lower>
-          <upper>3.14159265359</upper>
+          <lower>-1.5707963267948966</lower>
+          <upper>1.5707963267948966</upper>
           <effort>3</effort>
           <velocity>inf</velocity>
           <stiffness>100000000</stiffness>

@@ -50,6 +50,8 @@ namespace dmotion
         parameters->pendulum_walk_param.ANKLE_DIS = param_map["dmotion.PendulumWalk.ankle_dis"].as_double();
         parameters->pendulum_walk_param.COM_HEIGHT = param_map["dmotion.PendulumWalk.com_height"].as_double();    
         parameters->stp.UPARM_ANGLE = param_map["dmotion.Status.uparm_angle"].as_double();
+        parameters->stp.MIDARM_ANGLE = param_map["dmotion.Status.midarm_angle"].as_double();
+
         parameters->stp.LOWARM_ANGLE = param_map["dmotion.Status.lowarm_angle"].as_double();
         
         

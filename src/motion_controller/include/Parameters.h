@@ -252,6 +252,7 @@ namespace dmotion
         double panball_x = 1;
 
         double UPARM_ANGLE = 0;
+        double MIDARM_ANGLE = 0;
         double LOWARM_ANGLE = 0;
     //新规则backward
         double backward_step_length = -3;
