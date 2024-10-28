@@ -99,12 +99,21 @@ void IO::Init(const Entity &_entity,const std::shared_ptr<const sdf::Element> &_
         });
 
     auto joints = dataPtr->model.Joints(_ecm);
+    // std::cout << "Joints: " << std::endl;
+    // for (const auto &joint : joints)
+    // {
+    //     std::cout << "Joint Entity ID: " << joint << std::endl;
+    // }
+
     joint_number = joints.size();
     std::string joint_name_list;
     for(int i = 0; i < joint_number; ++i)
     {
         auto name = _ecm.Component<components::Name>(joints[i]);
-        this->dataPtr->jointNames.push_back(name->Data()),dataPtr->posPid.emplace_back(),actual_joint_name_index[name->Data()] = i;//add a joint and record its index
+        // std::cout << name->Data() << std::endl;
+        this->dataPtr->jointNames.push_back(name->Data());
+        dataPtr->posPid.emplace_back();
+        actual_joint_name_index[name->Data()] = i;//add a joint and record its index
         joint_name_list += name->Data() + ' ';
     }
     double p = 1, i = 0.1, d = 0.01;//pid参数
@@ -149,7 +158,7 @@ void IO::ServoControl(std::vector<double> servo_angles, const gz::sim::UpdateInf
     }
     // std::string str;
 
-    int cmd_joint_num = servo_angles.size(),total_joint_number = this->joint_order.size();
+    int cmd_joint_num = servo_angles.size(), total_joint_number = this->joint_order.size();
     if (cmd_joint_num < total_joint_number)//如果有关节没有涉及到（比如头一般不控制）
     {
         for(int i = cmd_joint_num; i < total_joint_number; ++i) servo_angles.push_back(0);
@@ -166,7 +175,7 @@ void IO::ServoControl(std::vector<double> servo_angles, const gz::sim::UpdateInf
         auto jointPosComp = _ecm.Component<components::JointPosition>(this->dataPtr->jointEntities[index]);
         if (!jointPosComp)//如果没有就创建一个，然后让系统自己更新
         {
-            _ecm.CreateComponent(this->dataPtr->jointEntities[index],components::JointPosition());
+            _ecm.CreateComponent(this->dataPtr->jointEntities[index], components::JointPosition());
             return;
         }   
         //如果有但是还没数据，我们也返回
@@ -186,8 +195,10 @@ void IO::ServoControl(std::vector<double> servo_angles, const gz::sim::UpdateInf
         //获取力控组件
         Entity joint = this->dataPtr->jointEntities[index];
         auto forceComp = _ecm.Component<components::JointForceCmd>(joint);
-        if (forceComp == nullptr)   _ecm.CreateComponent(joint,components::JointForceCmd({force}));
-        else    *forceComp = components::JointForceCmd({force});
+        if (forceComp == nullptr)  
+            _ecm.CreateComponent(joint, components::JointForceCmd({force}));
+        else    
+            *forceComp = components::JointForceCmd({force});
     }
     // gzmsg << str <<  std::endl;
     

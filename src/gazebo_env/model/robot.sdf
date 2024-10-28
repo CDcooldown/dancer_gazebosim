@@ -184,7 +184,7 @@
     <link name='left_hand'>
       <pose relative_to='left_arm_lower'>0 0 0 0 0 0</pose>
       <inertial>
-        <pose>0.070329000000000003 -0.014057 -0.021406999999999999 0 0 0</pose>
+        <pose>0.070329000000000003 -0.014057 -0.021406999999999999 0 0 0 </pose>
         <mass>0.064269999999999994</mass>
         <inertia>
           <ixx>1.2951e-05</ixx>
@@ -1108,7 +1108,7 @@
       </axis>
     </joint>
     <link name='right_hand'>
-      <pose relative_to='right_arm_lower'>0 0 0 0 0 0</pose>
+      <pose relative_to='right_arm_lower'>0 0 0 0 -1.33 0</pose>
       <inertial>
         <pose>-0.0048133999999999998 -0.028542999999999999 -0.073357000000000006 0 0 0</pose>
         <mass>0.064269999999999994</mass>

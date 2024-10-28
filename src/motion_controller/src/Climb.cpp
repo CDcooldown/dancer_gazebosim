@@ -53,7 +53,7 @@ Climb::Climb(std::shared_ptr< std::queue< std::vector<double> > > _action_list, 
 
 void Climb::working()
 {
-  std::vector<std::vector<double> > servo_position;//use to record all the calculate result of servo position
+  std::vector<std::vector<double>> servo_position;//use to record all the calculate result of servo position
   std::vector<double> servo_points, position_aftclimb, angle_leftleg, angle_rightleg;
   servo_points.resize(DATA_COL_NUM - 1);
 

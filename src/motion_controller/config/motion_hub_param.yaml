@@ -48,7 +48,7 @@
                 default_boundary_slope: 1.0
             Climb:
                 whole_time: 0.5
-                not_leg_only_number: 17
+                not_leg_only_number: 19
             Kick:
                 # right_kick_x: -15.0
                 # right_kick_y: 7.0

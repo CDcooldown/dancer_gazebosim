@@ -76,7 +76,7 @@ namespace dmotion
     struct ClimbParam
     {
         double WHOLE_TIME = 0.5;
-        double NOT_LEG_ONLY_NUMBER = 17;
+        double NOT_LEG_ONLY_NUMBER = 19;
     };
 
     struct KickParam
@@ -236,7 +236,7 @@ namespace dmotion
         double LAAT_for_ball = 10;
 
 
-        std::vector<double> cur_servo_angles = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+        std::vector<double> cur_servo_angles = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
         double cur_ankle_dis =15.0;
 
 
