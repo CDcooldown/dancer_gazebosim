@@ -210,7 +210,7 @@ namespace dmotion
         double adjust_max_yaw = 10;
         double adjust_max_step_num = 5;
 
-        bool see_ball= false;
+        bool see_ball= true;
         std::vector<double> ball_field = {100,0,0};
         std::vector<double> ball_global = {0,0,0};
         std::vector<double> robot_global = {0,0,0};
