@@ -32,6 +32,7 @@ void DELETE(T *&x) {
   }
 }
 
+bool climbing = false;
 void paramater_server_thread_func(std::shared_ptr<dmotion::ParamNode> param_server)
 {
   rclcpp::spin(param_server);
@@ -174,11 +175,15 @@ void MotionController::ComputeMotion()
 
   switch (this->dataPtr->param_server_node->parameters->status_code)
   {
-    std::cout << this->dataPtr->param_server_node->parameters->status_code << std::endl;
-    case StatusCode::CROUCH: //默认姿态是CROUCH状态fdfdfd
+    // int code = this->dataPtr->param_server_node->parameters->status_code;
+    // std::cout << code << std::endl;
+    case StatusCode::CROUCH: //默认姿态是CROUCH状态
     {
+      // std::cout << "StatusCode::CROUCH" << std::endl;
+
       if (this->dataPtr->param_server_node->parameters->stp.gait_queue.size() == 0) //防止突然停下，加一个特判
-      {this->parameters->stp.last_gait.x != 0 || this->dataPtr->param_server_node->parameters->stp.last_gait.y != 0 || this->dataPtr->param_server_node->parameters->stp.last_gait.t != 0) 
+      {
+        if (this->dataPtr->param_server_node->parameters->stp.last_gait.x != 0 || this->dataPtr->param_server_node->parameters->stp.last_gait.y != 0 || this->dataPtr->param_server_node->parameters->stp.last_gait.t != 0) 
         {
           dataPtr->param_server_node->parameters->stp.tmp_gait.isRight = !dataPtr->param_server_node->parameters->stp.tmp_gait.isRight;
           dataPtr->param_server_node->parameters->stp.tmp_gait.label = "before crouch";
@@ -196,6 +201,7 @@ void MotionController::ComputeMotion()
     }
     case StatusCode::WALK_TO_BALL:
     {  
+      // std::cout << "StatusCode::WALK_TO_BALL" << std::endl;
       //先求出踢球点在机器人坐标系下的位置
       Eigen::Vector2d robot_pos(this->dataPtr->param_server_node->parameters->stp.robot_global[0], this->dataPtr->param_server_node->parameters->stp.robot_global[1]),ball_pos(this->dataPtr->param_server_node->parameters->stp.ball_global[0],this->dataPtr->param_server_node->parameters->stp.ball_global[1]);
       Eigen::Vector2d target_pos(this->dataPtr->param_server_node->parameters->stp.ball_global[0] - this->dataPtr->param_server_node->parameters->stp.robot_global[0],this->dataPtr->param_server_node->parameters->stp.ball_global[1] - this->dataPtr->param_server_node->parameters->stp.robot_global[1]);
@@ -222,6 +228,7 @@ void MotionController::ComputeMotion()
     case StatusCode::FORWARD_FALL_GETUP: 
     {
       std::cout << "StatusCode::FORWARD_FALL_GETUP" << std::endl;
+      climbing = true;
       this->dataPtr->pendulum_global.reset();
       auto climber = newClimb(this->dataPtr->action_list,this->dataPtr->param_server_node->parameters,"FORWARD");
       climber.run();
@@ -232,7 +239,7 @@ void MotionController::ComputeMotion()
     case StatusCode::BACKWARD_FALL_GETUP: 
     {
       std::cout << "StatusCode::BACKWARD_FALL_GETUP" << std::endl;
-
+      climbing = true;
       this->dataPtr->pendulum_global.reset();
       auto climber = newClimb(this->dataPtr->action_list, this->dataPtr->param_server_node->parameters,"BACK");
       climber.run();
@@ -246,11 +253,39 @@ void MotionController::ComputeMotion()
 
 void MotionController::PreUpdate(const UpdateInfo &_info, EntityComponentManager &_ecm)
 {
-    std::cout << "PreUpdate!!" << std::endl;
+    // std::cout << "PreUpdate!!" << std::endl;
 
   if (_info.paused)    return; // 如果暂停就直接return
-    
-  if(this->dataPtr->action_list->empty())  ComputeMotion();//如果动作都已经执行完毕，运行上位机程序，更新action_list
+  switch (this->dataPtr->param_server_node->parameters->status_code)
+  {
+    case StatusCode::CROUCH: //默认姿态是CROUCH状态
+    {
+      std::cout << "CROUCH" << std::endl;
+      break;
+    }
+    case StatusCode::WALK_TO_BALL:
+    {  
+      std::cout << "WALK_TO_BALL" << std::endl;
+      break;
+    }
+    case StatusCode::FORWARD_FALL_GETUP: 
+    {
+      std::cout << "FORWARD_FALL_GETUP" << std::endl;
+      break;
+    }
+    case StatusCode::BACKWARD_FALL_GETUP: 
+    {
+      std::cout << "BACKWARD_FALL_GETUP" << std::endl;
+      break;
+    }
+  }
+
+  if(this->dataPtr->action_list->empty())  
+    {
+      if (climbing)
+        climbing = false;
+      ComputeMotion();//如果动作都已经执行完毕，运行上位机程序，更新action_list
+    }
   if(!this->dataPtr->action_list->empty())//如果更新后有动作，则取出并执行
   {
     if(this->dataPtr->get_next_control_time() <= _info.simTime)
@@ -283,7 +318,7 @@ void MotionController::PreUpdate(const UpdateInfo &_info, EntityComponentManager
 
 void MotionController::PostUpdate(const UpdateInfo &_info, const EntityComponentManager &_ecm)
 {
-  std::cout << "PostUpdate!!" << std::endl;
+  // std::cout << "PostUpdate!!" << std::endl;
 
   if (_info.paused)    return; // 如果暂停就直接return
 
@@ -311,7 +346,7 @@ void MotionController::PostUpdate(const UpdateInfo &_info, const EntityComponent
   if (check_stable_count > -1) {
     //检查是否倒地
     this->dataPtr->checkStableState(this->dataPtr->IOptr->get_rpy());
-    if(this->dataPtr->m_stable_state != StableState::STABLE)
+    if(this->dataPtr->m_stable_state != StableState::STABLE && !climbing)
     {
       if(this->dataPtr->m_stable_state == StableState::FRONTDOWN) this->dataPtr->param_server_node->parameters->status_code = StatusCode::FORWARD_FALL_GETUP;
       else this->dataPtr->param_server_node->parameters->status_code = StatusCode::BACKWARD_FALL_GETUP;
