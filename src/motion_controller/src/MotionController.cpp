@@ -178,7 +178,7 @@ void MotionController::ComputeMotion()
     case StatusCode::CROUCH: //默认姿态是CROUCH状态fdfdfd
     {
       if (this->dataPtr->param_server_node->parameters->stp.gait_queue.size() == 0) //防止突然停下，加一个特判
-      {s>parameters->stp.last_gait.x != 0 || this->dataPtr->param_server_node->parameters->stp.last_gait.y != 0 || this->dataPtr->param_server_node->parameters->stp.last_gait.t != 0) 
+      {this->parameters->stp.last_gait.x != 0 || this->dataPtr->param_server_node->parameters->stp.last_gait.y != 0 || this->dataPtr->param_server_node->parameters->stp.last_gait.t != 0) 
         {
           dataPtr->param_server_node->parameters->stp.tmp_gait.isRight = !dataPtr->param_server_node->parameters->stp.tmp_gait.isRight;
           dataPtr->param_server_node->parameters->stp.tmp_gait.label = "before crouch";
@@ -246,7 +246,7 @@ void MotionController::ComputeMotion()
 
 void MotionController::PreUpdate(const UpdateInfo &_info, EntityComponentManager &_ecm)
 {
-    // std::cout << "PreUpdate!!" << std::endl;
+    std::cout << "PreUpdate!!" << std::endl;
 
   if (_info.paused)    return; // 如果暂停就直接return
     
@@ -283,7 +283,7 @@ void MotionController::PreUpdate(const UpdateInfo &_info, EntityComponentManager
 
 void MotionController::PostUpdate(const UpdateInfo &_info, const EntityComponentManager &_ecm)
 {
-  // std::cout << "PostUpdate!!" << std::endl;
+  std::cout << "PostUpdate!!" << std::endl;
 
   if (_info.paused)    return; // 如果暂停就直接return
 
