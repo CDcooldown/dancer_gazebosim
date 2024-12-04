@@ -49,7 +49,7 @@ void PendulumWalk::GiveAStep(double dx, double dy, double d_yaw)
     // cout << "x : " << dx << " y : " << dy << " d_yaw : " << d_yaw << " " << endl;
     cout << endl;
     delete Support;
-    Support = new OneFootLanding(support_is_right,parameters);
+    Support = new OneFootLanding(support_is_right, parameters);
     
     //如果是质心初始位置的话，那需要com_pos表示上一时刻质心轨迹的终点，hang_foot表示新悬荡脚作为支撑脚时偏移一半ankle——dis的位置（在哪个坐标系中随意）
     x0 = com_pos[0] * cos(hang_foot[2]) - hang_foot[0] * cos(hang_foot[2]) + com_pos[1] * sin(hang_foot[2]) - hang_foot[1] * sin(hang_foot[2]);
@@ -65,10 +65,10 @@ void PendulumWalk::GiveAStep(double dx, double dy, double d_yaw)
     Tc = std::sqrt(com_h / 980);
     //        std::cout << "Tc  :" << Tc << " " << std::endl;
 
-    //算出来这个步态单元的初速度vx  
+    //算出来这个步态单元的初速度vx
     double C = cosh(tao / Tc),S = sinh(tao / Tc);
     vx = (xt - x0 * C) / (Tc * S);
-    //        std::cout << "vx :" << vx << std::endl;
+    //std::cout << "vx :" << vx << std::endl;
 
     //y方向的研究
 

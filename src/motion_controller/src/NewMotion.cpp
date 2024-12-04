@@ -22,8 +22,6 @@ namespace dmotion
         
 //     }
 
-
-
 // newClimb 类实现
 newClimb::newClimb(std::shared_ptr< std::queue< std::vector<double> > > _action_list, std::shared_ptr<Parameters> _parameters, std::string climbDirection): GenerateMotion(StatusCode::FORWARD_FALL_GETUP), climber(_action_list , climbDirection, _parameters)
 {

@@ -21,6 +21,8 @@ using namespace dmotion;
 using MotionList = std::list< std::shared_ptr< GenerateMotion> >;
 
 #define STABLE_COUNT 30
+int check_stable_count = 0;
+bool climb_once = true;
 
 template <typename T>
 void DELETE(T *&x) {
@@ -172,11 +174,11 @@ void MotionController::ComputeMotion()
 
   switch (this->dataPtr->param_server_node->parameters->status_code)
   {
-    case StatusCode::CROUCH: //默认姿态是CROUCH状态
+    std::cout << this->dataPtr->param_server_node->parameters->status_code << std::endl;
+    case StatusCode::CROUCH: //默认姿态是CROUCH状态fdfdfd
     {
       if (this->dataPtr->param_server_node->parameters->stp.gait_queue.size() == 0) //防止突然停下，加一个特判
-      {
-        if (this->dataPtr->param_server_node->parameters->stp.last_gait.x != 0 || this->dataPtr->param_server_node->parameters->stp.last_gait.y != 0 || this->dataPtr->param_server_node->parameters->stp.last_gait.t != 0) 
+      {s>parameters->stp.last_gait.x != 0 || this->dataPtr->param_server_node->parameters->stp.last_gait.y != 0 || this->dataPtr->param_server_node->parameters->stp.last_gait.t != 0) 
         {
           dataPtr->param_server_node->parameters->stp.tmp_gait.isRight = !dataPtr->param_server_node->parameters->stp.tmp_gait.isRight;
           dataPtr->param_server_node->parameters->stp.tmp_gait.label = "before crouch";
@@ -219,6 +221,7 @@ void MotionController::ComputeMotion()
     }
     case StatusCode::FORWARD_FALL_GETUP: 
     {
+      std::cout << "StatusCode::FORWARD_FALL_GETUP" << std::endl;
       this->dataPtr->pendulum_global.reset();
       auto climber = newClimb(this->dataPtr->action_list,this->dataPtr->param_server_node->parameters,"FORWARD");
       climber.run();
@@ -228,8 +231,10 @@ void MotionController::ComputeMotion()
     }
     case StatusCode::BACKWARD_FALL_GETUP: 
     {
+      std::cout << "StatusCode::BACKWARD_FALL_GETUP" << std::endl;
+
       this->dataPtr->pendulum_global.reset();
-      auto climber = newClimb(this->dataPtr->action_list,this->dataPtr->param_server_node->parameters,"BACK");
+      auto climber = newClimb(this->dataPtr->action_list, this->dataPtr->param_server_node->parameters,"BACK");
       climber.run();
       this->dataPtr->pendulum_global = std::make_shared<PendulumWalk>(this->dataPtr->action_list, this->dataPtr->param_server_node->parameters);
       this->dataPtr->param_server_node->parameters->status_code = CROUCH;
@@ -241,6 +246,8 @@ void MotionController::ComputeMotion()
 
 void MotionController::PreUpdate(const UpdateInfo &_info, EntityComponentManager &_ecm)
 {
+    // std::cout << "PreUpdate!!" << std::endl;
+
   if (_info.paused)    return; // 如果暂停就直接return
     
   if(this->dataPtr->action_list->empty())  ComputeMotion();//如果动作都已经执行完毕，运行上位机程序，更新action_list
@@ -251,7 +258,7 @@ void MotionController::PreUpdate(const UpdateInfo &_info, EntityComponentManager
       auto delta = std::chrono::duration_cast< std::chrono::milliseconds>(std::chrono::duration< double >(1.0 / this->control_frequency));//转成ms是因为std::chrono::steady_clock::duration不支持与秒的相加
       this->dataPtr->nextControlTime += delta;
       auto top_action = this->dataPtr->action_list->front();  this->dataPtr->action_list->pop();
-      std::cout << top_action.size() << std::endl << std::endl << std::endl;
+      // std::cout << top_action.size() << std::endl << std::endl << std::endl;
 
       if(top_action.size() == 1)    //我们规定如果取出来的front 为长度为1的动作，则是delay动作，唯一一个元素表示时间长度（s为单位）
       {
@@ -276,6 +283,8 @@ void MotionController::PreUpdate(const UpdateInfo &_info, EntityComponentManager
 
 void MotionController::PostUpdate(const UpdateInfo &_info, const EntityComponentManager &_ecm)
 {
+  // std::cout << "PostUpdate!!" << std::endl;
+
   if (_info.paused)    return; // 如果暂停就直接return
 
   this->dataPtr->IOptr->update_observation(_info,_ecm);//让IO从仿真中更新机器人的位置、imu、舵机位置等等
@@ -299,14 +308,18 @@ void MotionController::PostUpdate(const UpdateInfo &_info, const EntityComponent
     this->dataPtr->param_server_node->parameters->status_code = StatusCode::WALK_TO_BALL;
   }
 
-  //检查是否倒地
-  this->dataPtr->checkStableState(this->dataPtr->IOptr->get_rpy());
-  if(this->dataPtr->m_stable_state != StableState::STABLE)
-  {
-    if(this->dataPtr->m_stable_state == StableState::FRONTDOWN) this->dataPtr->param_server_node->parameters->status_code = StatusCode::FORWARD_FALL_GETUP;
-    else this->dataPtr->param_server_node->parameters->status_code = StatusCode::BACKWARD_FALL_GETUP;
-    this->dataPtr->param_server_node->parameters->stp.see_ball = false;//摔倒后重置看见球的状态
+  if (check_stable_count > -1) {
+    //检查是否倒地
+    this->dataPtr->checkStableState(this->dataPtr->IOptr->get_rpy());
+    if(this->dataPtr->m_stable_state != StableState::STABLE)
+    {
+      if(this->dataPtr->m_stable_state == StableState::FRONTDOWN) this->dataPtr->param_server_node->parameters->status_code = StatusCode::FORWARD_FALL_GETUP;
+      else this->dataPtr->param_server_node->parameters->status_code = StatusCode::BACKWARD_FALL_GETUP;
+      this->dataPtr->param_server_node->parameters->stp.see_ball = false;//摔倒后重置看见球的状态
+    }
+    check_stable_count++;
   }
+
   
    
 }
@@ -365,13 +378,25 @@ void MotionController::MotionControllerPrivate::checkStableState(std::vector<dou
       ++stablecount;
       frontcount = backcount = leftcount = rightcount = 0;
     }
-
-    if (frontcount > STABLE_COUNT)      m_stable_state = FRONTDOWN;
-    else if (backcount > STABLE_COUNT)  m_stable_state = BACKDOWN;
+    // std::cout << "frontcount:   " << frontcount << "     backcount:   " << backcount << std::endl;
+    if (frontcount > STABLE_COUNT && climb_once) {
+      m_stable_state = FRONTDOWN;
+      // std::cout << "FRONTDOWN!!" << std::endl;
+      // climb_once = false;
+    }     
+    if (backcount > STABLE_COUNT && climb_once) {
+      m_stable_state = BACKDOWN;
+      // std::cout << "BACKDOWN!!" << std::endl;
+      // climb_once = false;
+    }
     else if (leftcount > STABLE_COUNT)  m_stable_state = LEFTDOWN;
     else if (rightcount > STABLE_COUNT) m_stable_state = RIGHTDOWN;
     else if (stablecount > 100)         m_stable_state = STABLE;
+    // std::cout << m_stable_state << std::endl;
 
+    // if (climb_once == false) {
+    //   m_stable_state = STABLE;
+    // }
 }
 
 /////////////////////////////////
